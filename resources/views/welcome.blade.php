@@ -16,6 +16,7 @@
                             <span>
                                 @if ($tor->admin)
                                     <a class="settings" href="settings?tid={{$tor->id}}"><i class="fas fa-cog"></i></a>
+                                    <a class="exit" onclick="checkDel({{$tor->id}});" ><i class="fas fa-sign-out-alt"></i></a>
                                 @else
                                     <a class="exit" onclick="checkDel({{$tor->id}});" ><i class="fas fa-sign-out-alt"></i></a>
                                 @endif
@@ -43,9 +44,10 @@
         var i;
         for(i=0;i<lobby.length;i++){
             lobby[i].addEventListener('click',function(event){
-                if(event.target == event.currentTarget) {
+                if(!event.target.classList.contains('fa-sign-out-alt')) {
                     document.location.href = 'lobby?tid='+this.getAttribute('tid');
                 }
+
             });
         }
 
