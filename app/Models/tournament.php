@@ -44,13 +44,13 @@ class tournament extends Model
                     t.id,
                     t.name,
                     (  SELECT ( (ts.score * 1000) - ts.time )
-                            FROM quizdailytourniment.tournament_score ts
+                            FROM tournament_score ts
                             WHERE ts.date = current_date()
                                 AND ts.tid = t.id
                                 AND ts.uid = ?
                         ) as score
-                FROM quizdailytourniment.tournament_player tp
-                    INNER JOIN quizdailytourniment.tournament t
+                FROM tournament_player tp
+                    INNER JOIN tournament t
                         ON tp.tid = t.id;';
 
         return DB::select( $sql , [Auth::id()]);
