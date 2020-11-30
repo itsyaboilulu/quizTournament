@@ -16,7 +16,6 @@
                             <span>
                                 @if ($tor->admin)
                                     <a class="settings" href="settings?tid={{$tor->id}}"><i class="fas fa-cog"></i></a>
-                                    <a class="exit" onclick="checkDel({{$tor->id}});" ><i class="fas fa-sign-out-alt"></i></a>
                                 @else
                                     <a class="exit" onclick="checkDel({{$tor->id}});" ><i class="fas fa-sign-out-alt"></i></a>
                                 @endif
