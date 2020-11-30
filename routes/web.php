@@ -10,6 +10,7 @@ use App\Models\questions;
 use App\Models\tournament;
 use App\Models\tournamentPoints;
 use App\Models\useful;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::redirect('/dashboard', '/', 301);
 
 Route::middleware('auth')->group(function () {
 
-    Route::view('/',                 'welcome', array('tournaments'=>tournament::tournaments(),));
+    Route::view('/',                 'welcome', array('tournaments'=>tournament::tournaments()));
     Route::view('/new',              'newtournament');
 
     Route::get ('/lobby',            'App\Http\Controllers\tournamentController@lobbyPage');
@@ -40,20 +41,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('test',function(){
-    $tid = 4;
-    $maxdate = tournamentPoints::select(DB::raw('MAX(last_updated) as date'))->where('tid', $tid)->first();
-
-    $daterange = new DatePeriod( new DateTime( date( 'Y-m-d',  strtotime( $maxdate->date ) ) ),
-        new DateInterval( 'P1D' ),
-        new DateTime( useful::currentTimeStamp( 'Y-m-d' ) ));
-
-
-    $count = 0;
-    foreach ($daterange as $date) {
-        if ($count != 0){
-            echo $date->format("Ymd") . "<br>";
-        }
-        $count++;
-    }
+    print_r(tournament::tournaments());
 
 });

@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\DB;
 class tournamentController extends Controller
 {
 
-
     public function changeSetting(Request $request)
     {
         //double check admin
@@ -73,6 +72,7 @@ class tournamentController extends Controller
         $t           = new tournament();
         $t->name     = $request->get('name');
         $t->password = $request->get('password');
+        $t->settings = serialize(array('scoreboard'=>1));
         $t->save();
 
         $tm          = new tournamentPlayer();
@@ -93,7 +93,7 @@ class tournamentController extends Controller
      */
     public function lobbyPage(Request $request)
     {
-        if ( $request->get('tid') && tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get() ) {
+        if ( $request->get('tid') && count(tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get()) > 0 ) {
 
             return view('lobby', array(
                 'tournament' => tournament::find( $request->get('tid') ),
@@ -115,7 +115,7 @@ class tournamentController extends Controller
      */
     public function playPage(Request $request)
     {
-        if ( $request->get('tid') && tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get()) {
+        if ($request->get('tid') && count(tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get()) > 0) {
 
             //stop people retacking daily quiz
             if ( count(tournamentScore::where('tid', $request->get('tid'))->where('uid', Auth::id())->where('date',useful::currentTimeStamp('Y-m-d'))->get()) > 0 ){

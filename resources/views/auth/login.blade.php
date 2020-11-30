@@ -1,7 +1,12 @@
+@extends('/layouts/main')
+@section('head')
+    <link rel="stylesheet" href="{{URL::asset('resources/css/auth.min.css')}}" />
+@endsection
+@section('content')
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -12,7 +17,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('login') }}" id='form'>
             @csrf
 
             <div>
@@ -26,23 +31,26 @@
             </div>
 
             <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
+                <label for="remember_me" class="flex items-center cb-container">{{ __('Remember me') }}
                     <input id="remember_me" type="checkbox" class="form-checkbox" name="remember">
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="checkmark"></span>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
-
-                <x-jet-button class="ml-4">
-                    {{ __('Login') }}
-                </x-jet-button>
+            <div class="flex items-center justify-end mt-4" style="text-align:center">
+                <a class="button" id="login">Login</a>
+                <a class="button btn-green" href="register">Register</a>
             </div>
+
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+
+@endsection
+@section('script')
+    <script>
+        document.getElementById('login').addEventListener("click", function(){
+            document.getElementById('form').submit();
+        });
+    </script>
+@endsection

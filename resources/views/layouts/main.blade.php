@@ -33,6 +33,7 @@
             </section>
             <section id="footer">
                 <div class="container">
+                    <!-- <a>Logout</a> -->
                 </div>
             </section>
 		</div>

@@ -44,8 +44,8 @@ class tournamentScore extends Model
             $sql = "SELECT  u.id,
                             u.name,
                             ( ( SUM(s.score) * 100 ) - SUM(s.time) ) as points
-                        FROM quizdailytourniment.tournament_score s
-                            INNER JOIN quizdailytourniment.users u
+                        FROM tournament_score s
+                            INNER JOIN users u
                                 ON u.id = s.uid
                         WHERE s.tid = $tid
                         GROUP BY u.name
@@ -61,8 +61,8 @@ class tournamentScore extends Model
                                         s.time,
                                         s.score,
                                         ( (s.score * 100) - s.time ) as points
-                                    FROM quizdailytourniment.tournament_score s
-                                        INNER JOIN quizdailytourniment.users u
+                                    FROM tournament_score s
+                                        INNER JOIN users u
                                             ON u.id = s.uid
                                     WHERE s.tid = $tid
                                         AND s.date = '$date'

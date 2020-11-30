@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\useful;
 
 /**
@@ -40,6 +39,8 @@ class tournament extends Model
     public static function tournaments()
     {
 
+
+
         $sql = 'SELECT tp.admin,
                     t.id,
                     t.name,
@@ -47,13 +48,14 @@ class tournament extends Model
                             FROM tournament_score ts
                             WHERE ts.date = current_date()
                                 AND ts.tid = t.id
-                                AND ts.uid = ?
+                                AND ts.uid = 1
                         ) as score
                 FROM tournament_player tp
                     INNER JOIN tournament t
-                        ON tp.tid = t.id;';
+                        ON tp.tid = t.id
+                WHERE tp.uid = 1;';
 
-        return DB::select( $sql , [Auth::id()]);
+        return DB::select( $sql );
 
     }
 
@@ -84,7 +86,7 @@ class tournament extends Model
 
         //check if we have usable questions locally
         $check = DB::select("SELECT q.id, q.question, q.answer, q.option, q.catagory
-            FROM quizdailytourniment.questions q
+            FROM questions q
             WHERE id NOT IN (SELECT qid FROM tournament_question WHERE tid = $tid)
             ORDER BY RAND()
             LIMIT 10");
