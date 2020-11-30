@@ -14,14 +14,17 @@ use Illuminate\Support\Facades\DB;
 
 class tournamentController extends Controller
 {
-
+    /**
+     * change a setting for the given tournament
+     *
+     * @param Request $request
+     * @return redirect
+     */
     public function changeSetting(Request $request)
     {
         //double check admin
         if (!tournamentPlayer::isAdmin(Auth::id(), $request->get('tid'))){
-
             return redirect('settings?tid=' . $request->get('tid'));
-
         }
 
         $settings  = tournament::find($request->get('tid'));
@@ -41,6 +44,12 @@ class tournamentController extends Controller
     }
 
 
+    /**
+     * display settings page
+     *
+     * @param Request $request
+     * @return view
+     */
     public function settingsPage(Request $request)
     {
 
@@ -60,6 +69,7 @@ class tournamentController extends Controller
                                 [$request->get('tid'), Auth::id()]),
         ));
     }
+
 
     /**
      * Create a new tournament and add logged in member as admin
@@ -93,6 +103,7 @@ class tournamentController extends Controller
      */
     public function lobbyPage(Request $request)
     {
+
         if ( $request->get('tid') && count(tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get()) > 0 ) {
 
             return view('lobby', array(
@@ -103,15 +114,16 @@ class tournamentController extends Controller
             ));
 
         }
+
        return redirect('/');
     }
 
 
     /**
-     * Undocumented function
+     * display play page
      *
      * @param Request $request
-     * @return void
+     * @return redirect
      */
     public function playPage(Request $request)
     {
@@ -136,13 +148,14 @@ class tournamentController extends Controller
 
 
     /**
-     * Undocumented function
+     * displays quiz result page
      *
      * @param Request $request
-     * @return void
+     * @return view
      */
     public function result(Request $request)
     {
+
         $time = $this->getClock($request->get('tid'));
 
         if ( tournamentScore::where('date', date('Y-m-d', session('timer')[$request->get('tid')]))->where('uid',Auth::id())->where('tid', $request->get('tid'))->first() ) {
@@ -150,16 +163,17 @@ class tournamentController extends Controller
         }
 
         $sql = 'SELECT q.*
-            FROM tournament_question tq
-                INNER JOIN questions q
-                    ON q.id = tq.qid
-            WHERE tid = ?
-                AND date = ?
-            ORDER BY qno;';
+                FROM tournament_question tq
+                    INNER JOIN questions q
+                        ON q.id = tq.qid
+                WHERE tid = ?
+                    AND date = ?
+                ORDER BY qno;';
 
         $questions = DB::select($sql, [ $request->get('tid'), date('Y-m-d', session('timer')[$request->get('tid')]) ]);
 
         $score = 0;
+
         for($i=0;$i<count($questions);$i++){ if ( $questions[$i]->answer == $request->get('a'.$i) ) { $score++; } }
 
         $ps         = new tournamentScore();

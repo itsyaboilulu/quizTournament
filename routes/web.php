@@ -42,6 +42,3 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('test',function(){
-    print_r(tournament::tournaments());
-});

@@ -21,9 +21,9 @@ class tournament extends Model
     protected $table = 'tournament';
 
     /**
-     * Undocumented function
+     * returns given tournaments settings, if no settings are set NULL is returned
      *
-     * @param [type] $tid
+     * @param int $tid tournament id
      * @return object
      */
     public static function settings($tid){
@@ -32,13 +32,13 @@ class tournament extends Model
         return ($t->settings) ? (object) unserialize($t->settings) : NULL;
     }
 
+
     /**
      * returns a list of all tourniments logged in user is apart of
      * @return obj
      */
     public static function tournaments()
     {
-
 
         $sql = 'SELECT tp.admin,
                     t.id,
