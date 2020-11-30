@@ -40,7 +40,6 @@ class tournament extends Model
     {
 
 
-
         $sql = 'SELECT tp.admin,
                     t.id,
                     t.name,
@@ -48,14 +47,14 @@ class tournament extends Model
                             FROM tournament_score ts
                             WHERE ts.date = current_date()
                                 AND ts.tid = t.id
-                                AND ts.uid = 1
+                                AND ts.uid = ?
                         ) as score
                 FROM tournament_player tp
                     INNER JOIN tournament t
                         ON tp.tid = t.id
-                WHERE tp.uid = 1;';
+                WHERE tp.uid = ?;';
 
-        return DB::select( $sql );
+        return DB::select( $sql , [Auth::id(), Auth::id()]);
 
     }
 
