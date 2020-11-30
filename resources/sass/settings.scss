@@ -1,0 +1,17 @@
+.joinLink {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+.joinLink i {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+}
+.joinLink:hover {
+    cursor: pointer;
+}
+h3,
+hr {
+    margin: 1em 0 1em 0;
+}

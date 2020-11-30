@@ -1,0 +1,22 @@
+h3 {
+    text-align: center;
+}
+.tableHeaders {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+}
+.tableHeaders h4 {
+    padding: 0.5em;
+    font-size: 1.35em;
+}
+.tableHeaders h4:not(.selected):hover {
+    background: rgba(213, 35, 73, 0.5);
+    color: #fff !important;
+    cursor: pointer;
+}
+.tableHeaders .selected {
+    background: #d52349;
+    color: #fff !important;
+}

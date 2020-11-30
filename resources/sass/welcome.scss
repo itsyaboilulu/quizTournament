@@ -1,0 +1,23 @@
+.lobby {
+    font-weight: bold;
+}
+.lobby:hover {
+    background-color: rgba(224, 205, 205, 0.5);
+    cursor: pointer;
+}
+
+.lobby td span {
+    float: right;
+}
+
+h3 {
+    text-align: center;
+}
+.settings {
+    color: inherit;
+    padding: 0.5em;
+}
+.settings,
+.exit {
+    font-size: 1.5em;
+}
