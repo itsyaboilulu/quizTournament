@@ -11,6 +11,7 @@ use App\Models\tournament;
 use App\Models\tournamentPoints;
 use App\Models\useful;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +27,9 @@ use Illuminate\Support\Facades\Auth;
 Route::redirect('/dashboard', '/', 301);
 
 Route::middleware('auth')->group(function () {
-
-    Route::view('/',                 'welcome', array('tournaments'=>tournament::tournaments()));
+    Route::get('/',                  function(){
+                                        return view('welcome', array('tournaments' => tournament::tournaments()));
+    });
     Route::view('/new',              'newtournament');
 
     Route::get ('/lobby',            'App\Http\Controllers\tournamentController@lobbyPage');
@@ -40,4 +42,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-
+Route::get('test',function(){
+    print_r(tournament::tournaments());
+});
