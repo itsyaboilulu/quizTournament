@@ -24,7 +24,7 @@
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
             <section id="header">
-                <h1><a href="/">Quiz Tournement</a></h1>
+                <h1><a href="/">Quiz Tournament</a></h1>
             </section>
             <section id="main">
                 <div class="container">
@@ -33,6 +33,10 @@
             </section>
             <section id="footer">
                 <div class="container">
+                    <form action="logout" method="POST">
+                        @csrf
+                        <input type='submit' value='Logout' />
+                    </form>
                     <!-- <a>Logout</a> -->
                 </div>
             </section>

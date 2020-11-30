@@ -14,6 +14,21 @@ use Illuminate\Support\Facades\DB;
 
 class tournamentController extends Controller
 {
+
+    public function exitTournament(Request $request){
+
+        if ($request->get('tid') && count(tournamentPlayer::where('tid', $request->get('tid'))->where('uid', Auth::id())->get()) > 0) {
+
+            //laravel doesnt like composite keys so delete using sql statment
+            DB::delete('DELETE FROM `tournament_player` WHERE uid=? AND tid=? LIMIT 1', [Auth::id(),$request->get('tid')]);
+
+        }
+
+        return redirect('/');
+
+    }
+
+
     /**
      * change a setting for the given tournament
      *

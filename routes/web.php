@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/result',           'App\Http\Controllers\tournamentController@result');
     Route::post('/createtournament', 'App\Http\Controllers\tournamentController@createtournament');
     Route::post('/changesetting',    'App\Http\Controllers\tournamentController@changeSetting');
+    Route::post('/exittournament',   'App\Http\Controllers\tournamentController@exitTournament');
+
 
 });
 

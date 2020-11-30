@@ -16,8 +16,10 @@
                             <span>
                                 @if ($tor->admin)
                                     <a class="settings" href="settings?tid={{$tor->id}}"><i class="fas fa-cog"></i></a>
+                                @else
+                                    <a class="exit" onclick="checkDel({{$tor->id}});" ><i class="fas fa-sign-out-alt"></i></a>
                                 @endif
-                                    <a class="exit"><i class="fas fa-sign-out-alt"></i></a>
+
                             </span>
                         </td>
                     </tr>
@@ -26,12 +28,13 @@
                         <td  style="text-align: center"><br><a class="button" href="new">Start New Tournament</a></td>
                     </tr>
             </table>
-
-
-
-
         </article>
-
+<div style="display: none">
+    <form id='will_young' action="exittournament" method="POST">
+        @csrf
+        <input name="tid" id='wy_tid' value=""/>
+    </form>
+</div>
 
 @endsection
 @section('script')
@@ -39,10 +42,22 @@
         var lobby = document.getElementsByClassName('lobby');
         var i;
         for(i=0;i<lobby.length;i++){
-            lobby[i].addEventListener('click',function(){
-                document.location.href = 'lobby?tid='+this.getAttribute('tid');
+            lobby[i].addEventListener('click',function(event){
+                if(event.target == event.currentTarget) {
+                    document.location.href = 'lobby?tid='+this.getAttribute('tid');
+                }
             });
         }
+
+
+
+        function checkDel($tid) {
+            if (confirm('Are you sure you want to leave this tournament?')){
+                document.getElementById('wy_tid').value = $tid;
+                document.getElementById('will_young').submit();
+            }
+
+        };
     </script>
 @endsection
 
