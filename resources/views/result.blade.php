@@ -1,3 +1,6 @@
+@php
+    $page_title = 'Result';
+@endphp
 @extends('/layouts/main')
 @section('head')
     <link rel="stylesheet" href="{{URL::asset('resources/css/result.min.css')}}" />

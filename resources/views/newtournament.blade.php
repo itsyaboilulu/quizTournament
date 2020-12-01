@@ -1,3 +1,6 @@
+@php
+    $page_title = 'New Tournament';
+@endphp
 @extends('/layouts/main')
 @section('head')
 @endsection

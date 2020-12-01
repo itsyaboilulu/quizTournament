@@ -1,3 +1,6 @@
+@php
+    $page_title = 'Play';
+@endphp
 @extends('/layouts/main')
 @section('head')
     <link rel="stylesheet" href="{{URL::asset('resources/css/play.min.css')}}" />
